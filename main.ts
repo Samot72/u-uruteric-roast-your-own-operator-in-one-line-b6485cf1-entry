@@ -30,6 +30,12 @@ function checkRoast(text: string): number {
   if (text.includes("\n") || text.includes("\r")) {
     throw new Error("roast must be a single line");
   }
+  if (text !== text.trim()) {
+    throw new Error("roast must not have leading or trailing whitespace");
+  }
+  if (/\s{2,}/.test(text)) {
+    throw new Error("roast must not contain doubled whitespace");
+  }
   const chars = [...text].length;
   if (chars < MIN_CHARS || chars > MAX_CHARS) {
     throw new Error(
